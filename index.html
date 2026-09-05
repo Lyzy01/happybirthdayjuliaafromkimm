@@ -58,6 +58,7 @@
             left: 0;
             transition: opacity 0.5s ease-out, transform 0.5s ease-out;
             padding: 20px;
+            overflow: visible;
         }
 
         .step.active {
@@ -172,7 +173,7 @@
             position: absolute;
             width: 40px;
             height: 40px;
-            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iI2U5NDU2MCI+PHBhdGggZD0iTTEyIDYuMjc1Yy01LjUwMy01LjgyOC0xNC40NDUgMi41NDctNi40NDUgOS42NDcgNC44MjcgNC44MjcgOS4xMjcgMi40NTcgMTIgMi41MjEgMi44NzMtLjA2NCA3LjE3MyAyLjMwMyAxMi0yLjUyMSAxMi03LjA4IDcuNx01LTExLjQ4NSAyLjc1NS0xMS43OTJjLTcuOTk5LTcuMzk5LTMuMzk1LTkuNzE0LTYuNDQ1LTkuNjQ3eiIvPjwvc3ZnPg==');
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iI2U5NDU2MCI+PHBhdGggZD0iTTEyIDYuMjc1Yy01LjUwMy01LjgyOC0xNC40NDUgMi41NDctNi40NDUgOS42NDcgNC44MjcgNC44MjcgOS4xMjcgMi44NzMtLjA2NCA3LjE3MyAyLjMwMyAxMi0yLjUyMSAxMi03LjA4IDcuNx01LTExLjQ4NSAyLjc1NS0xMS43OTJjLTcuOTk5LTcuMzk5LTMuMzk1LTkuNzE0LTYuNDQ1LTkuNjQ3eiIvPjwvc3ZnPg==');
             background-size: cover;
             top: 80px;
             left: 50%;
@@ -545,9 +546,11 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            width: 100vw;
+            height: 100vh;
             pointer-events: none;
+            z-index: 99;
+            overflow: hidden;
         }
 
         .balloon {
@@ -557,15 +560,14 @@
             background-color: var(--primary-red);
             border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
             bottom: -100px;
-            opacity: 0.7;
+            opacity: 0.8;
             animation: rise 12s linear forwards;
-            z-index: 5;
         }
 
         .balloon::before {
             content: '';
             position: absolute;
-            width: 100px;
+            width: 10px;
             height: 10px;
             background-color: inherit;
             bottom: -5px;
@@ -587,9 +589,20 @@
         }
 
         @keyframes rise {
-            0% { transform: translateY(0) scale(0.8); opacity: 0; }
-            5% { opacity: 0.7; transform: translateY(0) scale(1); }
-            100% { transform: translateY(-120vh) scale(1); opacity: 0; }
+            0% { 
+                transform: translateY(105vh) scale(0.8); 
+                opacity: 0; 
+            }
+            10% { 
+                opacity: 0.8; 
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% { 
+                transform: translateY(-20vh) scale(1); 
+                opacity: 0; 
+            }
         }
 
         /* --- Confetti Cannon --- */
