@@ -43,7 +43,7 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            overflow: hidden;
+            overflow-x: hidden;
             perspective: 1000px;
         }
 
@@ -52,23 +52,26 @@
             justify-content: center;
             align-items: center;
             width: 100%;
-            height: 100%;
+            min-height: 100vh;
             position: absolute;
             top: 0;
             left: 0;
             transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+            padding: 20px;
         }
 
         .step.active {
             display: flex;
             opacity: 1;
             transform: scale(1);
+            position: relative;
         }
 
         .step:not(.active) {
             opacity: 0;
             transform: scale(0.95);
             pointer-events: none;
+            position: absolute;
         }
 
         .action-button {
@@ -234,12 +237,12 @@
         /* --- Step 4: Grand Celebration --- */
         .celebration-container {
             width: 100%;
-            height: 100%;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             position: relative;
-            overflow: hidden;
+            padding: 40px 10px;
         }
 
         .celebration-card {
@@ -251,6 +254,7 @@
             border: 1px solid rgba(255, 255, 255, 0.25);
             box-shadow: 0 20px 40px var(--shadow-heavy);
             max-width: 700px;
+            width: 100%;
             z-index: 10;
             animation: popIn 1s cubic-bezier(0.68, -0.55, 0.27, 1.55);
         }
@@ -295,6 +299,120 @@
             line-height: 1;
         }
 
+        /* --- Polaroid Photo Frame Component --- */
+        .polaroid-container {
+            margin: 25px auto;
+            perspective: 1000px;
+            width: 220px;
+            height: 260px;
+            cursor: pointer;
+        }
+
+        .polaroid-card {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 25px var(--shadow-heavy);
+            border-radius: 8px;
+        }
+
+        .polaroid-container:hover .polaroid-card,
+        .polaroid-card.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .polaroid-front, .polaroid-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            background: #ffffff;
+            padding: 12px 12px 35px 12px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .polaroid-front img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .polaroid-caption {
+            font-family: 'Pacifico', cursive;
+            color: #333;
+            font-size: 1.1rem;
+            margin-top: 8px;
+        }
+
+        .polaroid-back {
+            transform: rotateY(180deg);
+            background: #fffdf0;
+            color: #333;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .polaroid-back p {
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.8rem;
+            color: var(--primary-red);
+            line-height: 1.4;
+        }
+
+        /* --- Memory Timeline Component --- */
+        .timeline-section {
+            margin-top: 40px;
+            text-align: left;
+            border-top: 1px dashed rgba(255, 255, 255, 0.3);
+            padding-top: 25px;
+        }
+
+        .timeline-title {
+            font-family: 'Pacifico', cursive;
+            font-size: 1.8rem;
+            color: var(--accent-yellow);
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 20px;
+            border-left: 2px solid var(--primary-red);
+        }
+
+        .timeline-item::before {
+            content: '★';
+            position: absolute;
+            left: -11px;
+            top: 0;
+            background: var(--bg-dark);
+            color: var(--accent-yellow);
+            font-size: 0.9rem;
+            border-radius: 50%;
+        }
+
+        .timeline-item h4 {
+            font-size: 1.1rem;
+            color: var(--accent-yellow);
+            margin-bottom: 3px;
+        }
+
+        .timeline-item p {
+            font-size: 0.95rem;
+            line-height: 1.4;
+            opacity: 0.9;
+        }
+
         .final-wish {
             font-size: 1.15rem;
             margin-top: 25px;
@@ -326,13 +444,13 @@
 
         /* --- Cake Styling --- */
         .cake-container {
-            margin: 30px auto;
+            margin: 30px auto 10px;
         }
 
         .cake {
             position: relative;
             width: 280px;
-            height: 280px;
+            height: 240px;
             margin: 0 auto;
         }
 
@@ -341,7 +459,7 @@
             height: 25px;
             background-color: #ccc;
             position: absolute;
-            bottom: 40px;
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
             border-radius: 50%;
@@ -357,16 +475,16 @@
             left: 50%;
             transform: translateX(-50%);
         }
-        .layer-bottom { bottom: 45px; background-color: var(--cake-bottom); width: 280px; }
-        .layer-middle { bottom: 85px; background-color: var(--cake-middle); width: 260px; }
-        .layer-top { bottom: 125px; background-color: var(--cake-top); width: 240px; }
+        .layer-bottom { bottom: 25px; background-color: var(--cake-bottom); width: 280px; }
+        .layer-middle { bottom: 65px; background-color: var(--cake-middle); width: 260px; }
+        .layer-top { bottom: 105px; background-color: var(--cake-top); width: 240px; }
 
         .icing {
             position: absolute;
             width: 240px;
             height: 35px;
             background-color: white;
-            bottom: 165px;
+            bottom: 145px;
             border-radius: 50% / 25%;
             left: 50%;
             transform: translateX(-50%);
@@ -390,7 +508,7 @@
             width: 12px;
             height: 60px;
             background-color: var(--primary-red);
-            bottom: 190px;
+            bottom: 170px;
             left: 50%;
             transform: translateX(-50%);
             border-radius: 5px 5px 0 0;
@@ -424,7 +542,7 @@
 
         /* --- Balloons Animation --- */
         .balloons-container {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
@@ -447,7 +565,7 @@
         .balloon::before {
             content: '';
             position: absolute;
-            width: 10px;
+            width: 100px;
             height: 10px;
             background-color: inherit;
             bottom: -5px;
@@ -476,7 +594,7 @@
 
         /* --- Confetti Cannon --- */
         .confetti-cannon-container {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
@@ -503,7 +621,7 @@
 
         /* --- Fireworks Animation --- */
         .fireworks-container {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
@@ -524,28 +642,11 @@
             opacity: 0;
         }
 
-        .firework::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-color: inherit;
-            border-radius: 50%;
-            transform: scale(0);
-            animation: explode 0.8s ease-out 3s forwards;
-            opacity: 0;
-        }
-
         @keyframes launch {
             0% { transform: translateY(0) translateX(0); opacity: 0; }
             10% { opacity: 1; }
             70% { transform: translateY(-70vh) translateX(50px); opacity: 1; }
             100% { transform: translateY(-80vh) translateX(60px); opacity: 0; }
-        }
-
-        @keyframes explode {
-            0% { transform: scale(0); opacity: 1; }
-            100% { transform: scale(20); opacity: 0; }
         }
 
         /* --- Responsive Adjustments --- */
@@ -580,7 +681,7 @@
     <!-- Background YouTube Audio Player -->
     <iframe 
         id="youtubePlayer" 
-     src="https://www.youtube.com/embed/uiBiKC0TC3I?enablejsapi=1&autoplay=1&mute=1&loop=1&playlist=uiBiKC0TC3I"
+        src="https://www.youtube.com/embed/uiBiKC0TC3I?enablejsapi=1&autoplay=1&mute=1&loop=1&playlist=uiBiKC0TC3I" 
         allow="autoplay" 
         style="display:none;">
     </iframe>
@@ -608,7 +709,7 @@
     <div class="step" id="step3">
         <div class="letter-container" id="letterContainer">
             <div class="letter">
-                <p>Dearest [Name],</p>
+                <p>Dearest Sapthesh,</p>
                 <p>This message carries wishes straight from the heart, ready to unfold into a memorable celebration just for you.</p>
                 <p>Click the button to reveal your special birthday surprise!</p>
                 <button id="unfoldButton" class="action-button">Unfold My Surprise!</button>
@@ -626,6 +727,20 @@
                 <p class="sub-greeting">To the amazing</p>
                 <h1 class="main-greeting typewriter-text" id="finalGreeting">Happy Birthday,</h1>
                 <h2 class="recipient-name">Sapthesh!</h2>
+
+                <!-- Flipping Polaroid Frame -->
+                <div class="polaroid-container" id="polaroidFrame" title="Click to flip!">
+                    <div class="polaroid-card">
+                        <div class="polaroid-front">
+                            <img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=500&auto=format&fit=crop" alt="Celebration Memory">
+                            <span class="polaroid-caption">Best Memories ✨</span>
+                        </div>
+                        <div class="polaroid-back">
+                            <p>"Always bringing smiles wherever you go!"</p>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="cake-container">
                     <div class="cake">
                         <div class="plate"></div>
@@ -641,6 +756,24 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Memory Timeline / Reasons Why You're Awesome -->
+                <div class="timeline-section">
+                    <h3 class="timeline-title">Why You're Awesome</h3>
+                    <div class="timeline-item">
+                        <h4>Always Positive</h4>
+                        <p>You bring unmatched energy and joy to everyone around you!</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>A Great Friend</h4>
+                        <p>Always there when it matters most, through every laugh and story.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>Making Memories</h4>
+                        <p>Here's to another year filled with new goals, adventures, and milestones!</p>
+                    </div>
+                </div>
+
                 <p class="final-wish">May your special day be filled with immense joy, laughter, and all the wonderful things life has to offer. Here's to another year of amazing adventures!</p>
                 <p class="signature">With love and best wishes <span class="heart-icon"></span></p>
             </div>
@@ -655,6 +788,7 @@
             const envelopeContainer = document.getElementById('envelopeContainer');
             const unfoldButton = document.getElementById('unfoldButton');
             const finalGreetingElement = document.getElementById('finalGreeting');
+            const polaroidFrame = document.getElementById('polaroidFrame');
 
             const steps = {
                 step1: document.getElementById('step1'),
@@ -663,7 +797,6 @@
                 step4: document.getElementById('step4'),
             };
 
-            const recipientName = "Sapthesh";
             const messageGreeting = "Happy Birthday,";
 
             function transitionToStep(targetStepId) {
@@ -698,6 +831,13 @@
                 transitionToStep('step4');
                 startCelebrationAnimations();
             });
+
+            // Click-to-flip for Polaroid frame
+            if (polaroidFrame) {
+                polaroidFrame.addEventListener('click', () => {
+                    polaroidFrame.querySelector('.polaroid-card').classList.toggle('flipped');
+                });
+            }
 
             function startCelebrationAnimations() {
                 let i = 0;
@@ -785,7 +925,7 @@
                     firework.style.boxShadow = `0 0 5px ${firework.style.backgroundColor}`;
                     
                     const delay = Math.random() * 3;
-                    firework.style.animationDelay = `${delay}s, ${delay + 3}s`;
+                    firework.style.animationDelay = `${delay}s`;
                     
                     fireworksContainer.appendChild(firework);
 
